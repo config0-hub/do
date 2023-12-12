@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+
+import os
+import json
+from config0_publisher.resource_manage import to_jsonfile
+from config0_publisher.serialization import b64_encode
+from config0_publisher.utilities import print_json
+
+terraform_state_file = os.environ.get("TERRAFORM_STATE_FILE","terraform.tfstate")
+
+with open(terraform_state_file) as json_file:
+    data = json.load(json_file)
+
+if not data:
+    print("ERROR - there is no data from {}".format(os.path.join(os.getcwd(),terraform_state_file)))
+    exit(9)
+
+with open(terraform_state_file) as json_file:
+    raw = json.load(json_file)
+
+keys2pass = [ "name",
+              "service_subnet",
+              "id",
+              "urn",
+              "endpoint",
+              "kube_config",
+              "vpc_uuid" ]
+
+results = { "resource_type":"doks" }
+
+for _key in keys2pass:
+    _value = data["resources"][0]["instances"][0]["attributes"].get(_key)
+    if not _value:
+        continue
+    results[_key] = _value
+
+results["resource_type"] = "doks"
+results["provider"] = "do"
+results["main"] = True
+
+results["id"] = data["resources"][0]["instances"][0]["attributes"]["id"]
+results["doks_id"] = data["resources"][0]["instances"][0]["attributes"]["id"]
+results["_id"] = data["resources"][0]["instances"][0]["attributes"]["urn"]
+results["region"] = data["resources"][0]["instances"][0]["attributes"]["region"]
+results["doks_version"] = data["resources"][0]["instances"][0]["attributes"]["version"]
+
+results["tags"] = [ results["region"], 
+                    results["name"], 
+                    "k8s", 
+                    "kubernetes", 
+                    "digitalocean", 
+                    "do" ]
+
+results["raw"] = {"terraform":b64_encode(raw)}
+
+#print_json(results)
+
+# ref 34532045732
+to_jsonfile(results,"output.json")
