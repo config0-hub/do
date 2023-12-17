@@ -31,8 +31,8 @@ def run(stackargs):
                              tags="upload")
 
     # declare execution groups
-    stack.add_substack("config0-hub:::new_ssh_key")
-    stack.add_substack("config0-hub:::do_ssh_upload")
+    stack.add_substack("config0-publish:::new_ssh_key")
+    stack.add_substack("config0-publish:::do_ssh_upload")
 
     # Initialize Variables in stack
     stack.init_variables()

@@ -2,9 +2,9 @@
 
   - A single entry point for Jenkins on Docker end to end
   - This stack creates a schedule that runs three stacks as jobs:
-    - config0-hub:::new_do_ssh_key
-    - config0-hub:::droplet
-    - config0-hub:::jenkins_on_docker
+    - config0-publish:::new_do_ssh_key
+    - config0-publish:::droplet
+    - config0-publish:::jenkins_on_docker
 
   - It provides a single opinionated endpoint that creates a simple Jenkins instance on Digital Ocean
   - The automation is end to end automation
