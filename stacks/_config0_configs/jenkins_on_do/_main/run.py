@@ -47,9 +47,9 @@ class Main(newSchedStack):
                                 tags="ssh_key,droplet",
                                 types="str")
 
-        self.stack.add_substack("config0-publish:::new_do_ssh_key")
-        self.stack.add_substack("config0-publish:::droplet")
-        self.stack.add_substack("config0-publish:::jenkins_on_docker")
+        self.stack.add_substack("config0-hub:::new_do_ssh_key")
+        self.stack.add_substack("config0-hub:::droplet")
+        self.stack.add_substack("config0-hub:::jenkins_on_docker")
 
         self.stack.init_substacks()
 
@@ -76,18 +76,13 @@ class Main(newSchedStack):
         arguments = self.stack.get_tagged_vars(tag="ssh_key",
                                                output="dict")
     
-        # testtest777
-        self.stack.logger.debug('a'*32)
-        self.stack.logger.json(arguments)
-        self.stack.logger.debug('b'*32)
-
-        kwargs = {"arguments": arguments}
-        kwargs["automation_phase"] = "infrastructure"
-        kwargs["human_description"] = 'Create and upload ssh key name {}'.format(
-            self.stack.ssh_key_name)
+        human_description = "Create and upload ssh key name {}".format(self.stack.ssh_key_name)
+        inputargs = {"arguments": arguments,
+                    "automation_phase": "infrastructure",
+                    "human_description": human_description}
 
         return self.stack.new_do_ssh_key.insert(display=True,
-                                                **kwargs)
+                                                **inputargs)
 
     def run_droplet(self):
 
@@ -104,12 +99,13 @@ class Main(newSchedStack):
         arguments = self.stack.get_tagged_vars(tag="droplet",
                                                output="dict")
 
-        kwargs = {"arguments": arguments}
-        kwargs["automation_phase"] = "infrastructure"
-        kwargs["human_description"] = 'Create droplet hostname {}'.format(
-            self.stack.hostname)
+        human_description = 'Create droplet hostname {}'.format(self.stack.hostname)
+        inputargs = {"arguments": arguments,
+                    "automation_phase": "infrastructure",
+                    "human_description": human_description}
 
-        return self.stack.droplet.insert(display=True, **kwargs)
+
+        return self.stack.droplet.insert(display=True, **inputargs)
 
     def run_jenkins_ans(self):
 
@@ -121,13 +117,14 @@ class Main(newSchedStack):
         arguments = self.stack.get_tagged_vars(tag="jenkins",
                                                output="dict")
 
-        kwargs = {"arguments": arguments}
-        kwargs["automation_phase"] = "infrastructure"
-        kwargs["human_description"] = 'Install Jenkins on hostname {}'.format(
-            self.stack.hostname)
+        human_description = "Install Jenkins on hostname {}".format(self.stack.hostname)
+        inputargs = {"arguments": arguments,
+                    "automation_phase": "infrastructure",
+                    "human_description": human_description}
+
 
         return self.stack.jenkins_on_docker.insert(display=True,
-                                                   **kwargs)
+                                                   **inputargs)
 
     def run(self):
 

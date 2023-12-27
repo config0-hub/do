@@ -14,39 +14,39 @@ def run(stackargs):
     stack.parse.add_required(key="do_region",
                              tags="tfvar,db",
                              types="str",
-                             default='lon1')
+                             default="lon1")
 
     stack.parse.add_optional(key="doks_cluster_version",
                              tags="tfvar,db",
                              types="str",
-                             default='1.26.3-do.0')
+                             default="1.26.3-do.0")
 
     stack.parse.add_optional(key="doks_cluster_pool_size",
                              tags="tfvar",
                              types="str",
-                             default='s-1vcpu-2gb-amd')
+                             default="s-1vcpu-2gb-amd")
 
     stack.parse.add_optional(key="doks_cluster_pool_node_count",
                              tags="tfvar",
                              types="int",
-                             default='1')
+                             default="1")
 
     stack.parse.add_optional(key="doks_cluster_autoscale_min",
                              tags="tfvar",
                              types="int",
-                             default='1')
+                             default="1")
 
     stack.parse.add_optional(key="doks_cluster_autoscale_max",
                              tags="tfvar",
                              types="int",
-                             default='3')
+                             default="3")
 
     # declare execution groups
-    stack.add_execgroup("config0-publish:::do::doks",
+    stack.add_execgroup("config0-hub:::do::doks",
                         "tf_execgroup")
 
     # Add substack
-    stack.add_substack('config0-publish:::tf_executor')
+    stack.add_substack("config0-hub:::tf_executor")
 
     # Initialize Variables in stack
     stack.init_variables()

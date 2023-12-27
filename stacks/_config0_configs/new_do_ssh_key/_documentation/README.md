@@ -1,6 +1,6 @@
 **Description**
 
-  - The stack generates ssh_key and uploads it to digitalocean.
+  - This stack generates an SSH key and uploads it to DigitalOcean.
 
 **Required**
 
@@ -13,7 +13,7 @@
 ```
 infrastructure:
    ssh_upload:
-       stack_name: config0-publish:::do_ssh_upload
+       stack_name: config0-hub:::do_ssh_upload
        arguments:
           name: config0-test-do-key
        credentials:

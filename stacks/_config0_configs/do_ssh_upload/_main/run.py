@@ -4,9 +4,9 @@ from config0_publisher.terraform import TFConstructor
 def _get_ssh_public_key(stack):
 
     try:
-        _lookup = {"must_be_one": True}
-        _lookup["resource_type"] = "ssh_key_pair"
-        _lookup["name"] = stack.key_name
+        _lookup = {"must_be_one": True,
+                "resource_type": "ssh_key_pair",
+                "name": stack.key_name}
         results = stack.get_resource(decrypt=True,
                                      **_lookup)[0]
     except:
@@ -14,9 +14,9 @@ def _get_ssh_public_key(stack):
 
     if not results:
        try:
-            _lookup = {"must_be_one": True}
-            _lookup["resource_type"] = "ssh_public_key"
-            _lookup["name"] = stack.key_name
+            _lookup = {"must_be_one": True,
+                    "resource_type": "ssh_public_key",
+                    "name": stack.key_name}
             results = stack.get_resource(decrypt=True, 
                                          **_lookup)[0]
        except:
@@ -24,9 +24,9 @@ def _get_ssh_public_key(stack):
 
     if not results:
        try:
-            _lookup = {"must_be_one": True}
-            _lookup["resource_type"] = "inputvars"
-            _lookup["name"] = stack.key_name
+            _lookup = {"must_be_one": True,
+                    "resource_type": "inputvars",
+                    "name": stack.key_name}
             results = stack.get_resource(decrypt=True, 
                                          **_lookup)[0]
        except:
@@ -56,11 +56,11 @@ def run(stackargs):
                              types="str")
 
     # declare execution groups
-    stack.add_execgroup("config0-publish:::do::ssh_key_upload",
+    stack.add_execgroup("config0-hub:::do::ssh_key_upload",
                         "tf_execgroup")
 
     # Add substack
-    stack.add_substack('config0-publish:::tf_executor')
+    stack.add_substack("config0-hub:::tf_executor")
 
     # Initialize Variables in stack
     stack.init_variables()

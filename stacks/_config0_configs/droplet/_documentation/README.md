@@ -1,6 +1,6 @@
 **Description**
 
-  - Creates a droplet/vm on digitalocean
+  - This stack creates a Droplet/VM on DigitalOcean.
 
 **Required**
 
@@ -25,7 +25,7 @@
 ```
 infrastructure:
   vm:
-    stack_name: config0-publish:::droplet
+    stack_name: config0-hub:::droplet
     arguments:
       hostname: config0-demo
       ssh_key_id: 288907

@@ -1,6 +1,6 @@
 **Description**
 
-  - The stack uploads ssh public key to digital ocean.
+  - This stack uploads the SSH public key to DigitalOcean.
 
 **Required**
 

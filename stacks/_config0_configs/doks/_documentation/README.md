@@ -1,6 +1,6 @@
 **Description**
 
-  - The stack creates a Digital Ocean managed Kubernetes cluster
+  - This stack provisions a managed Kubernetes cluster on DigitalOcean.
 
 **Required**
 
@@ -20,7 +20,7 @@
 ```
 infrastructure:
    doks:
-       stack_name: config0-publish:::doks
+       stack_name: config0-hub:::doks
        arguments:
           doks_cluster_name: eval-config0-doks
        credentials:
