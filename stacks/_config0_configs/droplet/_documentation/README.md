@@ -25,7 +25,7 @@
 ```
 infrastructure:
   vm:
-    stack_name: config0-hub:::droplet
+    stack_name: config0-publish:::droplet
     arguments:
       hostname: config0-demo
       ssh_key_id: 288907

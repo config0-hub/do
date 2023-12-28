@@ -2,9 +2,9 @@
 
  - This stack serves as a centralized entry point for an end-to-end Jenkins-on-Docker setup.
  - It schedules three stacks as jobs to run in sequence:
-   - config0-hub:::new_do_ssh_key
-   - config0-hub:::droplet
-   - config0-hub:::jenkins_on_docker
+   - config0-publish:::new_do_ssh_key
+   - config0-publish:::droplet
+   - config0-publish:::jenkins_on_docker
  - By utilizing this stack, you can quickly create a straightforward Jenkins instance on DigitalOcean.
  - The automation provided covers the entire process from start to finish.
 

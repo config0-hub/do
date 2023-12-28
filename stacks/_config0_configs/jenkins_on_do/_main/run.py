@@ -47,9 +47,9 @@ class Main(newSchedStack):
                                 tags="ssh_key,droplet",
                                 types="str")
 
-        self.stack.add_substack("config0-hub:::new_do_ssh_key")
-        self.stack.add_substack("config0-hub:::droplet")
-        self.stack.add_substack("config0-hub:::jenkins_on_docker")
+        self.stack.add_substack("config0-publish:::new_do_ssh_key")
+        self.stack.add_substack("config0-publish:::droplet")
+        self.stack.add_substack("config0-publish:::jenkins_on_docker")
 
         self.stack.init_substacks()
 

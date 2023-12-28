@@ -20,7 +20,7 @@
 ```
 infrastructure:
    doks:
-       stack_name: config0-hub:::doks
+       stack_name: config0-publish:::doks
        arguments:
           doks_cluster_name: eval-config0-doks
        credentials:

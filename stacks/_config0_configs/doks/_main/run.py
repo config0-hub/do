@@ -42,11 +42,11 @@ def run(stackargs):
                              default="3")
 
     # declare execution groups
-    stack.add_execgroup("config0-hub:::do::doks",
+    stack.add_execgroup("config0-publish:::do::doks",
                         "tf_execgroup")
 
     # Add substack
-    stack.add_substack("config0-hub:::tf_executor")
+    stack.add_substack("config0-publish:::tf_executor")
 
     # Initialize Variables in stack
     stack.init_variables()
