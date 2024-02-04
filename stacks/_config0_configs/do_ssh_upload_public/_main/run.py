@@ -43,6 +43,8 @@ def run(stackargs):
                        tags="tfvar,db",
                        types="str")
 
+    stack.set_variable("timeout",600)
+
     ssm_obj = { "DIGITALOCEAN_TOKEN":stack.inputvars["DO_TOKEN"],
                 "DIGITALOCEAN_ACCESS_TOKEN":stack.inputvars["DO_TOKEN"] }
 

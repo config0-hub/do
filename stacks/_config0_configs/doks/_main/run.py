@@ -56,6 +56,8 @@ def run(stackargs):
     ssm_obj = { "DIGITALOCEAN_TOKEN":stack.inputvars["DO_TOKEN"],
                 "DIGITALOCEAN_ACCESS_TOKEN":stack.inputvars["DO_TOKEN"] }
 
+    stack.set_variable("timeout",1800)
+
     # use the terraform constructor (helper)
     # but this is optional
     tf = TFConstructor(stack=stack,
