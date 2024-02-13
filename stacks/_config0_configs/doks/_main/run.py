@@ -58,6 +58,9 @@ def run(stackargs):
         "DIGITALOCEAN_ACCESS_TOKEN":stack.inputvars["DO_TOKEN"]
     }
 
+    # if timeout exceeds 600, then it will use codebuild to execute tf
+    # otherwise, if less than 600 seconds, it will use a lambda function
+    # which is faster since lambda coldstarts is less than codebuild
     stack.set_variable("timeout",600)
 
     # use the terraform constructor (helper)
