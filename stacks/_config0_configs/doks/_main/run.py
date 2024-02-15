@@ -6,7 +6,8 @@ def run(stackargs):
     # instantiate authoring stack
     stack = newStack(stackargs)
 
-    # Add default variables
+    # Section 1:
+    # Add variables for the stack (many fetched from OpenTofu variables)
     stack.parse.add_required(key="doks_cluster_name",
                              tags="tfvar,db",
                              types="str")
@@ -19,7 +20,7 @@ def run(stackargs):
     stack.parse.add_optional(key="doks_cluster_version",
                              tags="tfvar,db",
                              types="str",
-                             default="1.26.3-do.0")
+                             default="1.29.1-do.0")
 
     stack.parse.add_optional(key="doks_cluster_pool_size",
                              tags="tfvar",
@@ -41,28 +42,36 @@ def run(stackargs):
                              types="int",
                              default="3")
 
-    # declare execution groups
+    # Section 2:
+    # Declare execution groups - for simplicity we alias "tf_execgroup"
+    # the execgroup must be fully qualified <repo_owner>:::<repo_name>::<execgroup_name>
     stack.add_execgroup("config0-publish:::do::doks",
                         "tf_execgroup")
 
-    # Add substack
+    # Section 3:
+    # Add substack - for OpenTofu it will almost always be config0-publish:::tf_executor
     stack.add_substack("config0-publish:::tf_executor")
 
+    # Section 4:
     # Initialize Variables in stack
     stack.init_variables()
     stack.init_execgroups()
     stack.init_substacks()
 
+    # Section 5:
+    # For sensitive upload to ssm parameter store which will automatically expire/remove object
     ssm_obj = {
         "DIGITALOCEAN_TOKEN":stack.inputvars["DO_TOKEN"],
         "DIGITALOCEAN_ACCESS_TOKEN":stack.inputvars["DO_TOKEN"]
     }
 
+    # Section 6:
     # if timeout exceeds 600, then it will use codebuild to execute tf
     # otherwise, if less than 600 seconds, it will use a lambda function
     # which is faster since lambda coldstarts is less than codebuild
     stack.set_variable("timeout",600)
 
+    # Section 7:
     # use the terraform constructor (helper)
     # but this is optional
     tf = TFConstructor(stack=stack,
@@ -73,9 +82,9 @@ def run(stackargs):
                        resource_type="doks",
                        terraform_type="digitalocean_kubernetes_cluster")
 
-    tf.include(maps={"cluster_id": "id",
-                     "doks_version": "version"})
-
+    # Section 8:
+    # keys to include in db fields
+    # from the terraform resource type
     tf.include(keys=["name",
                      "service_subnet",
                      "id",
@@ -84,7 +93,13 @@ def run(stackargs):
                      "kube_config",
                      "vpc_uuid"])
 
-    # publish the info
+    # Section 9:
+    # keys to map and include in db fields
+    tf.include(maps={"cluster_id": "id",
+                     "doks_version": "version"})
+
+    # Section 10:
+    # keys to publish and display in SaaS UI
     tf.output(keys=["doks_version",
                     "do_region",
                     "service_subnet",
@@ -92,8 +107,11 @@ def run(stackargs):
                     "vpc_uuid",
                     "endpoint"])
 
-    # finalize the tf_executor
+    # Section 11:
+    # Finalize the tf_executor
     stack.tf_executor.insert(display=True,
                              **tf.get())
 
+    # Section 12:
+    # return results
     return stack.get_results()
