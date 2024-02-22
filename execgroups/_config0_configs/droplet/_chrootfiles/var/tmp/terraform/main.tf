@@ -2,7 +2,7 @@ variable "ssh_key_id" {}
 
 variable "image" {
     description = "The Droplet image id"
-    default = "ubuntu-20-04-x64"
+    default = "docker-20-04"
 }
 
 variable "cloud_tags" {
