@@ -1,14 +1,14 @@
 variable "ssh_key_id" {}
 
-variable "image" {
-    description = "The Droplet image id"
-    default = "ubuntu-20-04-x64"
-}
-
 variable "cloud_tags" {
   description = "additional tags as a map"
   type        = map(string)
   default     = {}
+}
+
+variable "image" {
+    description = "The Droplet image id"
+    default = "ubuntu-20-04-x64"
 }
 
 variable "hostname" {
