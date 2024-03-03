@@ -3,11 +3,14 @@ from config0_publisher.terraform import TFConstructor
 
 def _get_ssh_public_key(stack):
 
-    _lookup = {"resource_type": "ssh_key_pair",
+    _lookup = {"must_be_one": True,
+               "resource_type": "ssh_key_pair",
                "name": stack.key_name}
-
-    results = stack.get_resource(decrypt=True,
-                                 **_lookup)
+    try:
+        results = stack.get_resource(decrypt=True,
+                                     **_lookup)[0]
+    except:
+        results = None
 
     if results:
         stack.logger.debug(f"found public key {_lookup}")
