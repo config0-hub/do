@@ -1,0 +1,13 @@
+desc: A single entry point for Jenkins on Docker
+release: 0.0.1
+categories: 
+   - ci
+   - infrastructure
+   - dev
+tags:
+   - ci
+   - infrastructure
+   - continuous_delivery
+   - dev
+   - config0_saas
+   - config0
