@@ -128,7 +128,7 @@ class Main(newSchedStack):
 
     def run(self):
 
-        self.stack.unset_parallel(sched_init=True)()
+        self.stack.unset_parallel(sched_init=True)
         self.add_job("ssh_key")
         self.add_job("droplet")
         self.add_job("jenkins_ans")
