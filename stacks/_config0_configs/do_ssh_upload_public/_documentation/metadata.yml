@@ -1,0 +1,16 @@
+desc: The stack uploads ssh public key to digital ocean.
+release: 0.0.1
+categories: 
+   - digital_ocean
+   - do
+   - ssh_key
+   - cloud
+   - public_cloud
+tags:
+   - do
+   - ssh_key
+   - ssh_public_key
+   - public_key
+   - host
+   - digital_ocean
+   - infrastructure

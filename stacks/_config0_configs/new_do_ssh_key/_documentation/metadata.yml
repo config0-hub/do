@@ -1,0 +1,12 @@
+desc: The stack generates ssh_key and uploads it to digitalocean.
+release: 0.0.1
+categories: 
+   - ssh_key
+   - cloud
+   - public_cloud
+tags:
+   - digitalocean
+   - ssh_key
+   - host
+   - do
+   - infrastructure

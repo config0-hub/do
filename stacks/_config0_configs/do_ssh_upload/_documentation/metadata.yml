@@ -1,0 +1,11 @@
+desc: The stack uploads existing ssh_key to digitalocean.
+release: 0.0.1
+categories: 
+   - ssh_key
+   - cloud
+   - public_cloud
+tags:
+   - digitalocean
+   - ssh_key
+   - do
+   - infrastructure
