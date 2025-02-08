@@ -1,0 +1,14 @@
+desc: The stack creates a Digital Ocean managed Kubernetes cluster
+release: 0.0.1
+categories: 
+   - k8s
+   - kubernetes
+   - cloud
+   - public_cloud
+tags:
+   - digitalocean
+   - k8s
+   - kubernetes
+   - doks
+   - do
+   - infrastructure

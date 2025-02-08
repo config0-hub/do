@@ -1,0 +1,13 @@
+desc: Creates a droplet/vm on digitalocean
+release: 0.0.1
+categories: 
+   - do
+   - cloud
+   - public_cloud
+tags:
+   - do
+   - vm
+   - droplet
+   - infrastructure
+   - cloud
+   - public_cloud

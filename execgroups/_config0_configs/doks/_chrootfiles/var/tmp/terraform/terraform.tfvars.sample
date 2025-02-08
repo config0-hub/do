@@ -1,0 +1,7 @@
+do_region                    = "lon1"
+doks_cluster_name            = "config0-eval-doks"
+doks_cluster_version         = "1.25.4-do.0"
+doks_cluster_pool_size       = "s-1vcpu-2gb-amd"
+doks_cluster_pool_node_count = "1"
+doks_cluster_autoscale_max   = "4"
+doks_cluster_autoscale_min   = "2"
