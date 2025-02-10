@@ -20,7 +20,7 @@ def run(stackargs):
     stack.parse.add_optional(key="doks_cluster_version",
                              tags="tfvar,db",
                              types="str",
-                             default="1.29.1-do.0")
+                             default="1.32")
 
     stack.parse.add_optional(key="doks_cluster_pool_size",
                              tags="tfvar",
@@ -43,7 +43,7 @@ def run(stackargs):
                              default="3")
 
     stack.parse.add_optional(key="tf_runtime",
-                             default="terraform:1.5.4",
+                             default="tofu:1.8.8",
                              types="str")
 
     # Section 2:
@@ -83,24 +83,17 @@ def run(stackargs):
                        provider="do",
                        ssm_obj=ssm_obj,
                        resource_name=stack.doks_cluster_name,
-                       resource_type="doks",
-                       terraform_type="digitalocean_kubernetes_cluster")
+                       resource_type="doks")
+
 
     # Section 8:
-    # keys to include in db fields
-    # from the terraform resource type
-    tf.include(keys=["name",
-                     "service_subnet",
-                     "id",
-                     "urn",
-                     "endpoint",
-                     "kube_config",
-                     "vpc_uuid"])
+    tf.include(values={
+                    "do_region":stack.do_region,
+                    "doks_version":stack.doks_cluster_version
+                    })
 
     # Section 9:
-    # keys to map and include in db fields
-    tf.include(maps={"cluster_id": "id",
-                     "doks_version": "version"})
+    tf.include(maps={"cluster_id": "id"})
 
     # Section 10:
     # keys to publish and display in SaaS UI

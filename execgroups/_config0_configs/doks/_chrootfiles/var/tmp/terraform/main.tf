@@ -1,13 +1,6 @@
 ###########################################
 # variables
 ###########################################
-
-variable "cloud_tags" {
-  description = "additional tags as a map"
-  type        = map(string)
-  default     = {}
-}
-
 variable "do_region" {
   description = "Digital Ocean region"
   type        = string
@@ -81,4 +74,24 @@ resource "digitalocean_kubernetes_cluster" "primary" {
                    var.doks_cluster_name ]
 
 
+}
+
+output "service_subnet" {
+  value = digitalocean_kubernetes_cluster.primary.service_subnet
+}
+
+output "id" {
+  value = digitalocean_kubernetes_cluster.primary.id
+}
+
+output "urn" {
+  value = digitalocean_kubernetes_cluster.primary.urn
+}
+
+output "endpoint" {
+  value = digitalocean_kubernetes_cluster.primary.endpoint
+}
+
+output "vpc_uuid" {
+  value = digitalocean_kubernetes_cluster.primary.vpc_uuid
 }

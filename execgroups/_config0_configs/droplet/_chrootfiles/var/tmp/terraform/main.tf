@@ -1,11 +1,5 @@
 variable "ssh_key_id" {}
 
-variable "cloud_tags" {
-  description = "additional tags as a map"
-  type        = map(string)
-  default     = {}
-}
-
 variable "image" {
     description = "The Droplet image id"
     default = "ubuntu-20-04-x64"
@@ -41,11 +35,6 @@ variable "with_ipv6" {
     default = false
 }
 
-variable "with_private_networking" {
-    description = "Boolean controlling if private networks are enabled"
-    default = false
-}
-
 variable "with_resize_disk" {
     description = "Whether to increase the disk size when resizing a Droplet"
     default = false
@@ -65,6 +54,25 @@ resource "digitalocean_droplet" "default" {
 }
 
 output "ip" {
-    description = "The Droplet ipv4 address"
     value = digitalocean_droplet.default.ipv4_address
+}
+
+output "id" {
+  value = digitalocean_droplet.default.id
+}
+
+output "image" {
+  value = digitalocean_droplet.default.image
+}
+
+output "urn" {
+  value = digitalocean_droplet.default.urn
+}
+
+output "private_ip" {
+  value = digitalocean_droplet.default.ipv4_address_private
+}
+
+output "public_ip" {
+  value = digitalocean_droplet.default.ipv4_address
 }

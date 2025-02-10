@@ -70,20 +70,14 @@ def run(stackargs):
                        ssm_obj=ssm_obj,
                        provider="do",
                        resource_name=stack.hostname,
-                       resource_type="server",
-                       terraform_type="digitalocean_droplet")
+                       resource_type="server")
 
-    tf.include(keys=["id",
-                     "image",
-                     "urn",
-                     "ipv4_address_private",
-                     "ipv4_address",
-                     "do_region",
-                     "name"])
+    tf.include(values={
+                    "do_region":stack.do_region,
+                    "name":stack.hostname,
+                    "hostname":stack.hostname
+                    })
 
-    tf.include(maps={"hostname": "name",
-                     "private_ip": "ipv4_address_private",
-                     "public_ip": "ipv4_address"})
 
     # publish the info
     tf.output(keys=["id",

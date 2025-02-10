@@ -53,15 +53,18 @@ def run(stackargs):
     tf = TFConstructor(stack=stack,
                        execgroup_name=stack.tf_execgroup.name,
                        provider="do",
+                       tf_runtime="tofu:1.8.8",
                        ssm_obj=ssm_obj,
                        resource_name=stack.ssh_key_name,
-                       resource_type="ssh_public_key",
-                       terraform_type="digitalocean_ssh_key")
+                       resource_type="ssh_public_key")
 
-    tf.include(maps={"ssh_key_id": "id"})
+    tf.include(values={
+                    "do_region":stack.do_region,
+                    "name":stack.ssh_key_name,
+                    "ssh_key_name":stack.ssh_key_name
+                    })
 
-    tf.include(keys=["id",
-                     "name"])
+    tf.include(maps={"id":"ssh_key_id"})
 
     # publish the info
     tf.output(keys=["id",
