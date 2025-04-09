@@ -17,3 +17,4 @@ terraform {
 # DIGITALOCEAN_TOKEN or DIGITALOCEAN_ACCESS_TOKEN
 provider "digitalocean" {
 }
+
