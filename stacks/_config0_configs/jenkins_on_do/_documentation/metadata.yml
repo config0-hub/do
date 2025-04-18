@@ -1,4 +1,4 @@
-desc: Automates deployment of Jenkins on DigitalOcean using Docker
+desc: Deploys Jenkins on DigitalOcean with SSH key creation and Docker installation
 release: 0.0.1
 author: Gary Leong <gary@config0.com>
 license: GPL-3.0

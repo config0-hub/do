@@ -15,39 +15,37 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+
 def run(stackargs):
 
-    # instantiate authoring stack
+    # Instantiate authoring stack
     stack = newStack(stackargs)
 
     # Add default variables
-    stack.parse.add_optional(key="name",
-                             typs="str")
-
-    stack.parse.add_optional(key="ssh_key_name",
-                             typs="str")
+    stack.parse.add_optional(key="name", types="str")
+    stack.parse.add_optional(key="ssh_key_name", types="str")
 
     stack.parse.add_optional(key="schedule_id",
-                             typs="str",
+                             types="str",
                              tags="create,upload")
 
     stack.parse.add_optional(key="run_id",
-                             typs="str",
+                             types="str",
                              tags="create,upload")
 
     stack.parse.add_optional(key="job_instance_id",
-                             typs="str",
+                             types="str",
                              tags="create,upload")
 
     stack.parse.add_optional(key="job_id",
-                             typs="str",
+                             types="str",
                              tags="create,upload")
 
     stack.parse.add_optional(key="cloud_tags_hash",
-                             typs="str",
+                             types="str",
                              tags="upload")
 
-    # declare execution groups
+    # Declare execution groups
     stack.add_substack("config0-publish:::new_ssh_key")
     stack.add_substack("config0-publish:::do_ssh_upload")
 
@@ -55,37 +53,36 @@ def run(stackargs):
     stack.init_variables()
     stack.init_substacks()
 
+    # Use ssh_key_name as name if name is not provided
     if not stack.get_attr("name") and stack.get_attr("ssh_key_name"):
         stack.set_variable("name",
-                           stack.ssh_key_name,
-                           tags="create,upload",
-                           types="str")
+                          stack.ssh_key_name,
+                          tags="create,upload",
+                          types="str")
 
     if not stack.get_attr("name"):
         raise Exception("either name or ssh_key_name required")
 
     stack.verify_variables()
 
-    # create new ssh key pair
-    arguments = stack.get_tagged_vars(tag="create",
-                                      output="dict")
-
+    # Create new ssh key pair
+    arguments = stack.get_tagged_vars(tag="create", output="dict")
     human_description = f"create ssh key name {stack.name}"
-    inputargs = {"arguments": arguments,
-                 "automation_phase": "infrastructure",
-                 "human_description": human_description}
-
+    inputargs = {
+        "arguments": arguments,
+        "automation_phase": "infrastructure",
+        "human_description": human_description
+    }
     stack.new_ssh_key.insert(display=True, **inputargs)
 
-    # upload ssh public pair
-    arguments = stack.get_tagged_vars(tag="upload",
-                                      output="dict")
-
+    # Upload ssh public pair
+    arguments = stack.get_tagged_vars(tag="upload", output="dict")
     human_description = f"upload ssh_public_key {stack.name} to DO"
-    inputargs = {"arguments": arguments,
-                 "automation_phase": "infrastructure",
-                 "human_description": human_description}
-
+    inputargs = {
+        "arguments": arguments,
+        "automation_phase": "infrastructure",
+        "human_description": human_description
+    }
     stack.do_ssh_upload.insert(display=True, **inputargs)
 
     return stack.get_results()

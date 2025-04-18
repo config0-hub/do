@@ -104,9 +104,9 @@ def run(stackargs):
 
     # Section 8:
     tf.include(values={
-                   "do_region": stack.do_region,
-                   "doks_version": stack.doks_cluster_version
-               })
+        "do_region": stack.do_region,
+        "doks_version": stack.doks_cluster_version
+    })
 
     # Section 9:
     tf.include(maps={"cluster_id": "id"})
@@ -126,7 +126,7 @@ def run(stackargs):
     inputargs["overide_values"]["tf_runtime"] = stack.tf_runtime
 
     stack.tf_executor.insert(display=True,
-                             **inputargs)
+                            **inputargs)
 
     # Section 12:
     # return results

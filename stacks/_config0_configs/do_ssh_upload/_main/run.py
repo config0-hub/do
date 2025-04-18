@@ -72,19 +72,17 @@ def _get_ssh_public_key(stack):
 
 
 def run(stackargs):
+    """Main function to upload SSH key to DigitalOcean."""
 
-    # instantiate authoring stack
+    # Instantiate authoring stack
     stack = newStack(stackargs)
 
     # Add default variables
     stack.parse.add_optional(key="key_name")
+    stack.parse.add_optional(key="name", types="str")
 
-    stack.parse.add_optional(key="name",
-                             types="str")
-
-    # declare execution groups
-    stack.add_execgroup("config0-publish:::do::ssh_key_upload",
-                        "tf_execgroup")
+    # Declare execution groups
+    stack.add_execgroup("config0-publish:::do::ssh_key_upload", "tf_execgroup")
 
     # Add substack
     stack.add_substack("config0-publish:::tf_executor")
@@ -94,48 +92,44 @@ def run(stackargs):
     stack.init_execgroups()
     stack.init_substacks()
 
+    # Use name as key_name if key_name is not specified
     if not stack.get_attr("key_name") and stack.get_attr("name"):
-        stack.set_variable("key_name",
-                           stack.name,
-                           types="str")
+        stack.set_variable("key_name", stack.name, types="str")
 
+    # Validate key_name
     if not stack.get_attr("key_name"):
-        msg = "key_name or name variable has to be set"
-        raise Exception(msg)
+        raise Exception("key_name or name variable has to be set")
 
-    stack.set_variable("ssh_key_name",
-                       stack.key_name,
-                       tags="tfvar,db",
-                       types="str")
-
-    stack.set_variable("ssh_public_key",
-                       _get_ssh_public_key(stack),
-                       tags="tfvar",
-                       types="str")
-
+    # Set variables for Terraform
+    stack.set_variable("ssh_key_name", stack.key_name, tags="tfvar,db", types="str")
+    stack.set_variable("ssh_public_key", _get_ssh_public_key(stack), tags="tfvar", types="str")
     stack.set_variable("timeout", 600)
 
-    ssm_obj = {"DIGITALOCEAN_TOKEN": stack.inputvars["DO_TOKEN"],
-               "DIGITALOCEAN_ACCESS_TOKEN": stack.inputvars["DO_TOKEN"]}
+    # Set DigitalOcean credentials
+    ssm_obj = {
+        "DIGITALOCEAN_TOKEN": stack.inputvars["DO_TOKEN"],
+        "DIGITALOCEAN_ACCESS_TOKEN": stack.inputvars["DO_TOKEN"]
+    }
 
-    # use the terraform constructor (helper)
-    # but this is optional
-    tf = TFConstructor(stack=stack,
-                       execgroup_name=stack.tf_execgroup.name,
-                       provider="do",
-                       tf_runtime="tofu:1.8.8",
-                       ssm_obj=ssm_obj,
-                       resource_name=stack.ssh_key_name,
-                       resource_type="ssh_public_key")
+    # Use the Terraform constructor helper
+    tf = TFConstructor(
+        stack=stack,
+        execgroup_name=stack.tf_execgroup.name,
+        provider="do",
+        tf_runtime="tofu:1.8.8",
+        ssm_obj=ssm_obj,
+        resource_name=stack.ssh_key_name,
+        resource_type="ssh_public_key"
+    )
 
+    # Include necessary variables for Terraform
     tf.include(values={
-                    "do_region": stack.do_region,
-                    "name": stack.ssh_key_name,
-                    "ssh_key_name": stack.ssh_key_name
-                    })
+        "do_region": stack.do_region,
+        "name": stack.ssh_key_name,
+        "ssh_key_name": stack.ssh_key_name
+    })
 
-    # finalize the tf_executor
-    stack.tf_executor.insert(display=True,
-                             **tf.get())
+    # Finalize the tf_executor
+    stack.tf_executor.insert(display=True, **tf.get())
 
     return stack.get_results()

@@ -75,13 +75,14 @@ def run(stackargs):
     stack.init_execgroups()
     stack.init_substacks()
 
-    ssm_obj = {"DIGITALOCEAN_TOKEN": stack.inputvars["DO_TOKEN"],
-               "DIGITALOCEAN_ACCESS_TOKEN": stack.inputvars["DO_TOKEN"]}
+    ssm_obj = {
+        "DIGITALOCEAN_TOKEN": stack.inputvars["DO_TOKEN"],
+        "DIGITALOCEAN_ACCESS_TOKEN": stack.inputvars["DO_TOKEN"]
+    }
 
     stack.set_variable("timeout", 600)
 
     # use the terraform constructor (helper)
-    # but this is optional
     tf = TFConstructor(stack=stack,
                        execgroup_name=stack.tf_execgroup.name,
                        ssm_obj=ssm_obj,
@@ -90,10 +91,10 @@ def run(stackargs):
                        resource_type="server")
 
     tf.include(values={
-                   "do_region": stack.do_region,
-                   "name": stack.hostname,
-                   "hostname": stack.hostname
-               })
+        "do_region": stack.do_region,
+        "name": stack.hostname,
+        "hostname": stack.hostname
+    })
 
     # publish the info
     tf.output(keys=["id",
