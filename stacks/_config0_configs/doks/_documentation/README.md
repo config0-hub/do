@@ -21,7 +21,7 @@ This stack creates and manages DigitalOcean Kubernetes Service (DOKS) clusters u
 | doks_cluster_pool_node_count | Initial node count in cluster            | 1               |
 | doks_cluster_autoscale_min   | Minimum node count for autoscaling       | 1               |
 | doks_cluster_autoscale_max   | Maximum node count for autoscaling       | 3               |
-| tf_runtime                   | Terraform runtime version                | tofu:1.8.8      |
+| tf_runtime                   | Terraform runtime version                | tofu:1.9.1      |
 | timeout                      | Configuration for timeout                | 2700            |
 
 ## Dependencies

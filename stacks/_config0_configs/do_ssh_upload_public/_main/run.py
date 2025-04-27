@@ -66,7 +66,7 @@ def run(stackargs):
     tf = TFConstructor(stack=stack,
                        execgroup_name=stack.tf_execgroup.name,
                        provider="do",
-                       tf_runtime="tofu:1.8.8",
+                       tf_runtime="tofu:1.9.1",
                        ssm_obj=ssm_obj,
                        resource_name=stack.ssh_key_name,
                        resource_type="ssh_public_key")
