@@ -1,0 +1,18 @@
+desc: Uploads SSH public key to DigitalOcean for resource access
+release: 0.0.1
+author: Gary Leong <gary@config0.com>
+license: GNU General Public License v3.0
+categories: 
+   - digital_ocean
+   - do
+   - ssh_key
+   - cloud
+   - public_cloud
+tags:
+   - do
+   - ssh_key
+   - ssh_public_key
+   - public_key
+   - host
+   - digital_ocean
+   - infrastructure
