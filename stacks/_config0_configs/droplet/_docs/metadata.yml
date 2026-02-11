@@ -1,0 +1,15 @@
+desc: Creates a DigitalOcean Droplet virtual machine with configurable options for size, region, networking, monitoring, and backups
+release: 0.0.1
+author: Gary Leong <gary@config0.com>
+license: GPL-3.0
+categories: 
+   - do
+   - cloud
+   - public_cloud
+tags:
+   - do
+   - vm
+   - droplet
+   - infrastructure
+   - cloud
+   - public_cloud

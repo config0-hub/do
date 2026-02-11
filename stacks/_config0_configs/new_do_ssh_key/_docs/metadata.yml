@@ -1,0 +1,14 @@
+desc: Creates SSH key pair and uploads public key to DigitalOcean for resource access
+release: 0.0.1
+author: Gary Leong <gary@config0.com>
+license: GPL-3.0
+categories: 
+   - ssh_key
+   - cloud
+   - public_cloud
+tags:
+   - digitalocean
+   - ssh_key
+   - host
+   - do
+   - infrastructure
