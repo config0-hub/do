@@ -27,9 +27,9 @@ This stack automates the deployment of a Jenkins instance on DigitalOcean. It cr
 ## Dependencies
 
 ### Substacks
-- [config0-publish:::new_do_ssh_key](https://api-app.config0.com/web_api/v1.0/stacks/config0-publish/new_do_ssh_key)
-- [config0-publish:::droplet](https://api-app.config0.com/web_api/v1.0/stacks/config0-publish/droplet)
-- [config0-publish:::jenkins_on_docker](https://api-app.config0.com/web_api/v1.0/stacks/config0-publish/jenkins_on_docker)
+- [config0-hub:::do::new_do_ssh_key](https://api-app.config0.com/web_api/v1.0/stacks/config0-hub/new_do_ssh_key)
+- [config0-hub:::do::droplet](https://api-app.config0.com/web_api/v1.0/stacks/config0-hub/droplet)
+- [config0-hub:::jenkins::jenkins_on_docker](https://api-app.config0.com/web_api/v1.0/stacks/config0-hub/jenkins_on_docker)
 
 ## License
 <pre>

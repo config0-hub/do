@@ -35,9 +35,9 @@ class Main(newSchedStack):
         self.parse.add_optional(key="cloud_tags_hash", tags="ssh_key,droplet", types="str")
 
         # Add required substacks
-        self.stack.add_substack("config0-publish:::new_do_ssh_key")
-        self.stack.add_substack("config0-publish:::droplet")
-        self.stack.add_substack("config0-publish:::jenkins_on_docker")
+        self.stack.add_substack("config0-hub:::do::new_do_ssh_key")
+        self.stack.add_substack("config0-hub:::do::droplet")
+        self.stack.add_substack("config0-hub:::jenkins::jenkins_on_docker")
 
         self.stack.init_substacks()
 

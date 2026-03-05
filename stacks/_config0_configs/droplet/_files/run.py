@@ -64,11 +64,11 @@ def run(stackargs):
                              types="bool")
 
     # declare execution groups
-    stack.add_execgroup("config0-publish:::do::droplet",
+    stack.add_execgroup("config0-hub:::do::droplet",
                         "tf_execgroup")
 
     # Add substack
-    stack.add_substack("config0-publish:::tf_executor")
+    stack.add_substack("config0-hub:::config0_core::tf_executor")
 
     # initialize variables
     stack.init_variables()

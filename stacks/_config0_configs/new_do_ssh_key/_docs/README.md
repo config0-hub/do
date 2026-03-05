@@ -22,11 +22,11 @@ Either `name` or `ssh_key_name` must be provided.
 ## Dependencies
 
 ### Substacks
-- [config0-publish:::new_ssh_key](http://config0.http.redirects.s3-website-us-east-1.amazonaws.com/assets/stacks/config0-publish/new_ssh_key/default)
-- [config0-publish:::do_ssh_upload](http://config0.http.redirects.s3-website-us-east-1.amazonaws.com/assets/stacks/config0-publish/do_ssh_upload/default)
+- [config0-hub:::config0_core::new_ssh_key](http://config0.http.redirects.s3-website-us-east-1.amazonaws.com/assets/stacks/config0-hub/new_ssh_key/default)
+- [config0-hub:::do::do_ssh_upload](http://config0.http.redirects.s3-website-us-east-1.amazonaws.com/assets/stacks/config0-hub/do_ssh_upload/default)
 
-### ShelloutConfigs
-- [config0-publish:::terraform::resource_wrapper](http://config0.http.redirects.s3-website-us-east-1.amazonaws.com/assets/shelloutconfigs/config0-publish/terraform/resource_wrapper/default)
+### Scripts
+- [config0-hub:::terraform::resource_wrapper](http://config0.http.redirects.s3-website-us-east-1.amazonaws.com/assets/scripts/config0-hub/terraform/resource_wrapper/default)
 
 ## License
 <pre>

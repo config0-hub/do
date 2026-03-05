@@ -66,12 +66,12 @@ def run(stackargs):
     # Section 2:
     # Declare execution groups - for simplicity we alias "tf_execgroup"
     # the execgroup must be fully qualified <repo_owner>:::<repo_name>::<execgroup_name>
-    stack.add_execgroup("config0-publish:::do::doks",
+    stack.add_execgroup("config0-hub:::do::doks",
                         "tf_execgroup")
 
     # Section 3:
-    # Add substack - for OpenTofu it will almost always be config0-publish:::tf_executor
-    stack.add_substack("config0-publish:::tf_executor")
+    # Add substack - for OpenTofu it will almost always be config0-hub:::config0_core::tf_executor
+    stack.add_substack("config0-hub:::config0_core::tf_executor")
 
     # Section 4:
     # Initialize Variables in stack

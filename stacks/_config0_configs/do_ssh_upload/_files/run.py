@@ -82,10 +82,10 @@ def run(stackargs):
     stack.parse.add_optional(key="name", types="str")
 
     # Declare execution groups
-    stack.add_execgroup("config0-publish:::do::ssh_key_upload", "tf_execgroup")
+    stack.add_execgroup("config0-hub:::do::ssh_key_upload", "tf_execgroup")
 
     # Add substack
-    stack.add_substack("config0-publish:::tf_executor")
+    stack.add_substack("config0-hub:::config0_core::tf_executor")
 
     # Initialize Variables in stack
     stack.init_variables()
