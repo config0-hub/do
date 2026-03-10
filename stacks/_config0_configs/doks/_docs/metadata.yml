@@ -1,16 +1,13 @@
 desc: Creates and manages DigitalOcean Kubernetes Service (DOKS) clusters with configurable versions and autoscaling
-release: 0.0.1
+release: 0.3.0
 author: Gary Leong <gary@config0.com>
-license: GNU General Public License v3
+license: GPL-3.0
 categories:
-   - k8s
+   - infrastructure
+   - terraform
    - kubernetes
-   - cloud
-   - public_cloud
 tags:
    - digitalocean
-   - k8s
    - kubernetes
    - doks
-   - do
-   - infrastructure
+   - terraform
