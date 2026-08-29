@@ -59,7 +59,7 @@ class Main(newSchedStack):
         self.stack.verify_variables()
 
         arguments = self.stack.get_tagged_vars(tag="ssh_key", output="dict")
-        
+
         human_description = f"Create and upload ssh key name {self.stack.ssh_key_name}"
         inputargs = {
             "arguments": arguments,
@@ -109,7 +109,6 @@ class Main(newSchedStack):
         return self.stack.jenkins_on_docker.insert(display=True, **inputargs)
 
     def run(self):
-        self.stack.unset_parallel(sched_init=True)
         self.add_job("ssh_key")
         self.add_job("droplet")
         self.add_job("jenkins_ans")
@@ -122,10 +121,6 @@ class Main(newSchedStack):
         sched.job = "ssh_key"
         sched.archive.timeout = 1800
         sched.archive.timewait = 120
-        sched.archive.cleanup.instance = "clear"
-        sched.failure.keep_resources = True
-        sched.conditions.retries = 1  # retries is always one for the first job
-        sched.automation_phase = "infrastructure"
         sched.human_description = "Create and upload ssh-key to DO"
         sched.on_success = ["droplet"]
         self.add_schedule()
@@ -135,9 +130,6 @@ class Main(newSchedStack):
         sched.job = "droplet"
         sched.archive.timeout = 1800
         sched.archive.timewait = 180
-        sched.archive.cleanup.instance = "clear"
-        sched.failure.keep_resources = True
-        sched.automation_phase = "infrastructure"
         sched.human_description = "Create droplet on DO"
         sched.on_success = ["jenkins_ans"]
         self.add_schedule()
@@ -147,9 +139,6 @@ class Main(newSchedStack):
         sched.job = "jenkins_ans"
         sched.archive.timeout = 1800
         sched.archive.timewait = 180
-        sched.archive.cleanup.instance = "clear"
-        sched.failure.keep_resources = True
-        sched.automation_phase = "infrastructure"
         sched.human_description = "Install Jenkins on VM"
         self.add_schedule()
 

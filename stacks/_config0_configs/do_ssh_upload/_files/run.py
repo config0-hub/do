@@ -24,8 +24,7 @@ def _get_ssh_public_key(stack):
                "resource_type": "ssh_key_pair",
                "name": stack.key_name}
     try:
-        results = stack.get_resource(decrypt=True,
-                                     **_lookup)[0]
+        results = stack.get_resource(**_lookup)[0]
     except:
         results = None
 
@@ -37,8 +36,7 @@ def _get_ssh_public_key(stack):
                    "resource_type": "ssh_public_key",
                    "name": stack.key_name}
         try:
-            results = stack.get_resource(decrypt=True,
-                                         **_lookup)[0]
+            results = stack.get_resource(**_lookup)[0]
         except:
             results = None
 
@@ -50,8 +48,7 @@ def _get_ssh_public_key(stack):
                    "resource_type": "inputvars",
                    "name": stack.key_name}
         try:
-            results = stack.get_resource(decrypt=True,
-                                         **_lookup)[0]
+            results = stack.get_resource(**_lookup)[0]
         except:
             results = None
 
@@ -66,7 +63,7 @@ def _get_ssh_public_key(stack):
     public_key = results.get("public_key")
 
     if public_key:
-        return stack.b64_encode(public_key)
+        return stack.serialize(public_key, json=False)
 
     raise Exception("could not retrieve public key/public key hash from query")
 

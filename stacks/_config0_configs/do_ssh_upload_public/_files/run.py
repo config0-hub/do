@@ -45,7 +45,7 @@ def run(stackargs):
         msg = "public_key is missing"
         raise Exception(msg)
 
-    stack.set_variable("ssh_public_key", 
+    stack.set_variable("ssh_public_key",
                        stack.public_key,
                        tags="tfvar",
                        types="str")
