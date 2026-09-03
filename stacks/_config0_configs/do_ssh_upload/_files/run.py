@@ -113,7 +113,7 @@ def run(stackargs):
         stack=stack,
         execgroup_name=stack.tf_execgroup.name,
         provider="do",
-        tf_runtime="tofu:1.9.1",
+        tf_runtime="tofu:1.10.6",
         ssm_obj=ssm_obj,
         resource_name=stack.ssh_key_name,
         resource_type="ssh_public_key"

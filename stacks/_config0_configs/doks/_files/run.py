@@ -60,7 +60,7 @@ def run(stackargs):
                              default="3")
 
     stack.parse.add_optional(key="tf_runtime",
-                             default="tofu:1.9.1",
+                             default="tofu:1.10.6",
                              types="str")
 
     # Section 2:
