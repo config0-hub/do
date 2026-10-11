@@ -87,8 +87,8 @@ def run(stackargs):
     }
 
     # Section 6:
-    # if timeout exceeds 600, then it will use codebuild to execute tf
-    # otherwise, if less than 600 seconds, it will use a lambda function
+    # if timeout exceeds 800, then it will use codebuild to execute tf
+    # otherwise, at 800 seconds or less, it will use a lambda function
     # which is faster since lambda coldstarts is less than codebuild
     stack.set_variable("timeout", 2700)
 
