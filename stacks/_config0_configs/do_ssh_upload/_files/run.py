@@ -110,9 +110,8 @@ def run(stackargs):
         resource_type="ssh_public_key"
     )
 
-    # Include necessary variables for Terraform
+    # A DigitalOcean SSH key has no region, so the state keys on "global".
     tf.include(values={
-        "do_region": stack.do_region,
         "name": stack.ssh_key_name,
         "ssh_key_name": stack.ssh_key_name
     })

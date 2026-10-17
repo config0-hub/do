@@ -13,7 +13,6 @@ None - Either `key_name` or `name` must be provided.
 |------|-------------|---------|
 | key_name | SSH key identifier for resource access | &nbsp; |
 | name | Alternative name for key_name if key_name is not set | &nbsp; |
-| do_region | DigitalOcean deployment region | &nbsp; |
 | ssh_key_name | Name label for SSH key | &nbsp; |
 | timeout | Maximum time for execution | 600 |
 

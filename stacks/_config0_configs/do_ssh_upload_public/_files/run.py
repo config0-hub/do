@@ -71,8 +71,8 @@ def run(stackargs):
                        resource_name=stack.ssh_key_name,
                        resource_type="ssh_public_key")
 
+    # A DigitalOcean SSH key has no region, so the state keys on "global".
     tf.include(values={
-        "do_region": stack.do_region,
         "name": stack.ssh_key_name,
         "ssh_key_name": stack.ssh_key_name
     })
