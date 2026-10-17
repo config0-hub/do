@@ -18,42 +18,33 @@
 from config0_publisher.terraform import TFConstructor
 
 
+def _find_key_row(stack, resource_type):
+    # No match is the expected miss that falls through to the next source.
+    rows = stack.get_resource(resource_type=resource_type,
+                              name=stack.key_name)
+
+    if len(rows) > 1:
+        raise Exception(f"expected at most one {resource_type} named "
+                        f"{stack.key_name}, found {len(rows)}")
+
+    if not rows:
+        return None
+
+    stack.logger.debug(f"found public key {resource_type} {stack.key_name}")
+    return rows[0]
+
+
 def _get_ssh_public_key(stack):
 
-    _lookup = {"must_be_one": True,
-               "resource_type": "ssh_key_pair",
-               "name": stack.key_name}
-    try:
-        results = stack.get_resource(**_lookup)[0]
-    except:
-        results = None
-
-    if results:
-        stack.logger.debug(f"found public key {_lookup}")
+    results = _find_key_row(stack, "ssh_key_pair")
 
     if not results:
-        _lookup = {"must_be_one": True,
-                   "resource_type": "ssh_public_key",
-                   "name": stack.key_name}
-        try:
-            results = stack.get_resource(**_lookup)[0]
-        except:
-            results = None
+        results = _find_key_row(stack, "ssh_public_key")
 
-        if results:
-            stack.logger.debug(f"found public key {_lookup}")
-
+    # No inputvars lookup: an inputvars row holds only its SSM path, never the
+    # set's values.
     if not results:
-        _lookup = {"must_be_one": True,
-                   "resource_type": "inputvars",
-                   "name": stack.key_name}
-        try:
-            results = stack.get_resource(**_lookup)[0]
-        except:
-            results = None
-
-        if results:
-            stack.logger.debug(f"found public key {_lookup}")
+        raise Exception("could not retrieve public key")
 
     public_key_hash = results.get("public_key_hash")
 
